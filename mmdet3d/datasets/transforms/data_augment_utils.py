@@ -1,16 +1,17 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import warnings
 
-import numba
+# import numba
 import numpy as np
-from numba.core.errors import NumbaPerformanceWarning
+# from numba.core.errors import NumbaPerformanceWarning
 
 from mmdet3d.structures.ops import box_np_ops
 
-warnings.filterwarnings('ignore', category=NumbaPerformanceWarning)
+# warnings.filterwarnings('ignore', category=NumbaPerformanceWarning)
+import warnings
+warnings.warn("⚠️ Numba is disabled in data_augment_utils")
 
-
-@numba.njit
+# @numba.njit
 def _rotation_box2d_jit_(corners, angle, rot_mat_T):
     """Rotate 2D boxes.
 
@@ -28,7 +29,7 @@ def _rotation_box2d_jit_(corners, angle, rot_mat_T):
     corners[:] = corners @ rot_mat_T
 
 
-@numba.jit(nopython=True)
+# @numba.jit(nopython=True)
 def box_collision_test(boxes, qboxes, clockwise=True):
     """Box collision test.
 
@@ -125,7 +126,7 @@ def box_collision_test(boxes, qboxes, clockwise=True):
     return ret
 
 
-@numba.njit
+# @numba.njit
 def noise_per_box(boxes, valid_mask, loc_noises, rot_noises):
     """Add noise to every box (only on the horizontal plane).
 
@@ -166,7 +167,7 @@ def noise_per_box(boxes, valid_mask, loc_noises, rot_noises):
     return success_mask
 
 
-@numba.njit
+# @numba.njit
 def noise_per_box_v2_(boxes, valid_mask, loc_noises, rot_noises,
                       global_rot_noises):
     """Add noise to every box (only on the horizontal plane). Version 2 used
@@ -251,7 +252,7 @@ def _select_transform(transform, indices):
     return result
 
 
-@numba.njit
+# @numba.njit
 def _rotation_matrix_3d_(rot_mat_T, angle, axis):
     """Get the 3D rotation matrix.
 
@@ -280,7 +281,7 @@ def _rotation_matrix_3d_(rot_mat_T, angle, axis):
         rot_mat_T[2, 2] = rot_cos
 
 
-@numba.njit
+# @numba.njit
 def points_transform_(points, centers, point_masks, loc_transform,
                       rot_transform, valid_mask):
     """Apply transforms to points and box centers.
@@ -310,7 +311,7 @@ def points_transform_(points, centers, point_masks, loc_transform,
                     break  # only apply first box's transform
 
 
-@numba.njit
+# @numba.njit
 def box3d_transform_(boxes, loc_transform, rot_transform, valid_mask):
     """Transform 3D boxes.
 

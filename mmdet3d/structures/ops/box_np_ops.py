@@ -4,7 +4,7 @@
 # NOTICE: All functions in this file are valid for LiDAR or depth boxes only
 # if we use default parameters.
 
-import numba
+# import numba
 import numpy as np
 
 from mmdet3d.structures.bbox_3d import (limit_period, points_cam2img,
@@ -120,7 +120,7 @@ def center_to_corner_box2d(centers, dims, angles=None, origin=0.5):
     return corners
 
 
-@numba.jit(nopython=True)
+# @numba.jit(nopython=True)
 def depth_to_points(depth, trunc_pixel):
     """Convert depth map to points.
 
@@ -201,7 +201,7 @@ def center_to_corner_box3d(centers,
     return corners
 
 
-@numba.jit(nopython=True)
+# @numba.jit(nopython=True)
 def box2d_to_corner_jit(boxes):
     """Convert box2d to corner.
 
@@ -232,7 +232,7 @@ def box2d_to_corner_jit(boxes):
     return box_corners
 
 
-@numba.njit
+# @numba.njit
 def corner_to_standup_nd_jit(boxes_corner):
     """Convert boxes_corner to aligned (min-max) boxes.
 
@@ -253,7 +253,7 @@ def corner_to_standup_nd_jit(boxes_corner):
     return result
 
 
-@numba.jit(nopython=True)
+# @numba.jit(nopython=True)
 def corner_to_surfaces_3d_jit(corners):
     """Convert 3d box corners from corner function above to surfaces that
     normal vectors all direct to internal.
@@ -480,7 +480,7 @@ def rbbox2d_to_near_bbox(rbboxes):
     return bboxes
 
 
-@numba.jit(nopython=True)
+# @numba.jit(nopython=True)
 def iou_jit(boxes, query_boxes, mode='iou', eps=0.0):
     """Calculate box iou. Note that jit version runs ~10x faster than the
     box_overlaps function in mmdet3d.core.evaluation.
@@ -639,7 +639,7 @@ def surface_equ_3d(polygon_surfaces):
     return normal_vec, -d
 
 
-@numba.njit
+# @numba.njit
 def _points_in_convex_polygon_3d_jit(points, polygon_surfaces, normal_vec, d,
                                      num_surfaces):
     """
@@ -706,7 +706,7 @@ def points_in_convex_polygon_3d_jit(points,
                                             normal_vec, d, num_surfaces)
 
 
-@numba.njit
+# @numba.njit
 def points_in_convex_polygon_jit(points, polygon, clockwise=False):
     """Check points is in 2d convex polygons. True when point in polygon.
 

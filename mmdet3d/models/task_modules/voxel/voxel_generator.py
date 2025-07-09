@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from typing import List, Tuple, Union
 
-import numba
+# import numba
 import numpy as np
 
 from mmdet3d.registry import MODELS
@@ -140,7 +140,7 @@ def points_to_voxel(points: np.ndarray,
     return voxels, coors, num_points_per_voxel
 
 
-@numba.jit(nopython=True)
+# @numba.jit(nopython=True)
 def _points_to_voxel_reverse_kernel(points: np.ndarray,
                                     voxel_size: Union[list, tuple, np.ndarray],
                                     coors_range: Union[List[float],
@@ -216,7 +216,7 @@ def _points_to_voxel_reverse_kernel(points: np.ndarray,
     return voxel_num
 
 
-@numba.jit(nopython=True)
+# @numba.jit(nopython=True)
 def _points_to_voxel_kernel(points: np.ndarray,
                             voxel_size: Union[list, tuple, np.ndarray],
                             coors_range: Union[List[float], List[Tuple[float]],

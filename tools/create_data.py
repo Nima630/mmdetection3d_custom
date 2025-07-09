@@ -76,10 +76,10 @@ def nuscenes_data_prep(root_path,
     nuscenes_converter.create_nuscenes_infos(
         root_path, info_prefix, version=version, max_sweeps=max_sweeps)
 
-    if version == 'v1.0-test':
-        info_test_path = osp.join(out_dir, f'{info_prefix}_infos_test.pkl')
-        update_pkl_infos('nuscenes', out_dir=out_dir, pkl_path=info_test_path)
-        return
+    # if version == 'v1.0-test':
+    #     info_test_path = osp.join(out_dir, f'{info_prefix}_infos_test.pkl')
+    #     update_pkl_infos('nuscenes', out_dir=out_dir, pkl_path=info_test_path)
+    #     return
 
     info_train_path = osp.join(out_dir, f'{info_prefix}_infos_train.pkl')
     info_val_path = osp.join(out_dir, f'{info_prefix}_infos_val.pkl')
@@ -294,7 +294,7 @@ parser.add_argument(
     default='./data/kitti',
     required=False,
     help='name of info pkl')
-parser.add_argument('--extra-tag', type=str, default='kitti')
+parser.add_argument('--extra-tag', type=str, default='nuscenes')
 parser.add_argument(
     '--workers', type=int, default=4, help='number of threads to be used')
 parser.add_argument(
@@ -349,14 +349,14 @@ if __name__ == '__main__':
                 dataset_name='NuScenesDataset',
                 out_dir=args.out_dir,
                 max_sweeps=args.max_sweeps)
-            test_version = f'{args.version}-test'
-            nuscenes_data_prep(
-                root_path=args.root_path,
-                info_prefix=args.extra_tag,
-                version=test_version,
-                dataset_name='NuScenesDataset',
-                out_dir=args.out_dir,
-                max_sweeps=args.max_sweeps)
+            # test_version = f'{args.version}-test'
+            # nuscenes_data_prep(
+            #     root_path=args.root_path,
+            #     info_prefix=args.extra_tag,
+            #     version=test_version,
+            #     dataset_name='NuScenesDataset',
+            #     out_dir=args.out_dir,
+            #     max_sweeps=args.max_sweeps)
     elif args.dataset == 'nuscenes' and args.version == 'v1.0-mini':
         if args.only_gt_database:
             create_groundtruth_database('NuScenesDataset', args.root_path,

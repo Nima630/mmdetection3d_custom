@@ -53,6 +53,26 @@ class DETR3D(MVXTwoStageDetector):
             True, True, rotate=1, offset=False, ratio=0.5, mode=1, prob=0.7)
         self.use_grid_mask = use_grid_mask
 
+
+                 data_preprocessor=None,
+                 use_grid_mask=False,
+                 img_backbone=None,
+                 img_neck=None,
+                 pts_bbox_head=None,
+                 train_cfg=None,
+                 test_cfg=None,
+                 pretrained=None):
+        super(DETR3D, self).__init__(
+            img_backbone=img_backbone,
+            img_neck=img_neck,
+            pts_bbox_head=pts_bbox_head,
+            train_cfg=train_cfg,
+            test_cfg=test_cfg,
+            data_preprocessor=data_preprocessor)
+        self.grid_mask = GridMask(
+            True, True, rotate=1, offset=False, ratio=0.5, mode=1, prob=0.7)
+        self.use_grid_mask = use_grid_mask
+
     def extract_img_feat(self, img: Tensor,
                          batch_input_metas: List[dict]) -> List[Tensor]:
         """Extract features from images.

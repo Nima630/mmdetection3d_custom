@@ -36,10 +36,13 @@ class DETR3DHead(DETRHead):
 
     def __init__(
             self,
+            num_query = 900,
             *args,
             with_box_refine=False,
+            in_channels=256,
             as_two_stage=False,
             transformer=None,
+            positional_encoding=None, 
             bbox_coder=None,
             num_cls_fcs=2,
             code_weights=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.2, 0.2],
@@ -51,12 +54,15 @@ class DETR3DHead(DETRHead):
             transformer['as_two_stage'] = self.as_two_stage
         self.code_size = code_size
         self.code_weights = code_weights
-
+        self.num_query = num_query 
         self.bbox_coder = TASK_UTILS.build(bbox_coder)
         self.pc_range = self.bbox_coder.pc_range
         self.num_cls_fcs = num_cls_fcs - 1
-        super(DETR3DHead, self).__init__(
-            *args, transformer=transformer, **kwargs)
+        self.transformer = transformer
+
+        # super(DETR3DHead, self).__init__(*args, transformer=transformer, **kwargs)
+        super(DETR3DHead, self).__init__(*args, **kwargs)
+
         # DETR sampling=False, so use PseudoSampler, format the result
         sampler_cfg = dict(type='PseudoSampler')
         self.sampler = TASK_UTILS.build(sampler_cfg)

@@ -266,6 +266,8 @@ def update_nuscenes_infos(pkl_path, out_dir):
         ('car', 'truck', 'trailer', 'bus', 'construction_vehicle', 'bicycle',
          'motorcycle', 'pedestrian', 'traffic_cone', 'barrier'),
     }
+    print("Loaded version from .pkl:", data_list['metadata']['version'])
+
     nusc = NuScenes(
         version=data_list['metadata']['version'],
         dataroot='./data/nuscenes',
@@ -373,6 +375,8 @@ def update_nuscenes_infos(pkl_path, out_dir):
     pkl_name = Path(pkl_path).name
     out_path = osp.join(out_dir, pkl_name)
     print(f'Writing to output file: {out_path}.')
+    ignore_class_name = []  # -----------------------------------------
+
     print(f'ignore classes: {ignore_class_name}')
 
     metainfo = dict()
